@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './components/Login.vue'
 import Home from './components/Home.vue'
+import Welcome from './components/Welcome.vue'
+import Users from './components/user/Users.vue'
 // 导入全局样式
 import './assets/css/global.css'
 
@@ -9,7 +11,19 @@ Vue.use(Router)
 const router = new Router({
     routes: [
         { path: '/', redirect: '/login' },
-        { path: '/login', component: Login }, { path: '/home', component: Home }
+        { path: '/login', component: Login }, {
+            path: '/home',
+            component: Home,
+            // 重定向到welcome组件
+            redirect: '/welcome',
+            children: [{
+                path: '/welcome',
+                component: Welcome
+            }, {
+                path: '/users',
+                component: Users
+            }]
+        }
     ]
 })
 

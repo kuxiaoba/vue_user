@@ -40,8 +40,8 @@ export default {
     return {
       // 表单绑定
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       // 验证表单是否合格
       Fromyanz: {
