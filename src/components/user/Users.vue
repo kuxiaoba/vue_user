@@ -1,10 +1,10 @@
-e<template>
+<template>
   <div>
     <!-- 面包屑区域 -->
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>
-        <a href="/">用户管理</a>
+       用户管理
       </el-breadcrumb-item>
       <el-breadcrumb-item>用户列表</el-breadcrumb-item>
     </el-breadcrumb>
@@ -49,7 +49,7 @@ e<template>
             <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
             <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
               <!-- 分配角色按钮 -->
-              <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+              <el-button type="warning" icon="el-icon-setting" size="mini" @click="setro(scope.row)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -110,6 +110,32 @@ e<template>
         <el-button type="primary" @click="editUserInfo">确 定</el-button>
       </span>
     </el-dialog>
+
+    <!--分配角色对话框  -->
+    <el-dialog
+  title="分配角色"
+  :visible.sync="fpdialogVisible"
+  width="50%" @close="setEoleDied">
+<div>
+  <p>当前的用户 :{{userinfo.username}} </p>
+  <p>当前的角色 :{{userinfo.role_name}}</p>
+  <p>分配新角色:
+    <el-select v-model="selectRoleId" placeholder="请选择">
+    <el-option
+      v-for="item in rolsList"
+      :key="item.id"
+      :label="item.roleName"
+      :value="item.id">
+    </el-option>
+  </el-select>
+  </p>
+</div>
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="fpdialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="saveRoveInfo">确 定</el-button>
+  </span>
+</el-dialog>
+
   </div>
 </template>
 
@@ -186,6 +212,13 @@ export default {
           }
         ]
       }
+      ,fpdialogVisible:false,
+      // 需要被分配角色的用户信息
+      userinfo:{},
+      // 所有角色的数据列表
+      rolsList :[],
+      // 已经选择的角色id值
+      selectRoleId :''
     }
   },
   created() {
@@ -301,7 +334,36 @@ export default {
       }
       this.$message.success('删除成功!')
       this.getUserlist()
-    }
+    },
+    async setro (userinfo){
+         // 获取所有角色列表
+    this.userinfo = userinfo
+    // 在展示对话框之前获取所有角色列表
+     const {data:res}=  await this.$http.get('roles')
+   if(res.meta.status !==200) {
+     return  this.$message.error('获取角色列表失败')
+   }
+   this.rolsList = res.data
+      this.fpdialogVisible = true;
+    },
+ async saveRoveInfo (){
+  if(!this.selectRoleId) {
+    return this.$message.error('请选择角色')
+  }
+ const {data:res} =  await this.$http.put(`users/${this.userinfo.id}/role`,{rid:this.selectRoleId})
+ if(res.meta.status !==200) {
+    return this.$message.error('更新角色列表失败')
+ }
+ this.$message.success("更新角色成功")
+ this.getUserlist()
+ this.fpdialogVisible = false
+},
+setEoleDied (){
+  this.selectRoleId=''
+  this.userinfo = {
+    
+  }
+}
   }
 }
 </script>

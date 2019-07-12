@@ -23,9 +23,18 @@ import {
     Tooltip,
     Pagination,
     Dialog,
-    MessageBox
+    MessageBox,
+    Tag,
+    Tree,
+    Select,
+    Option,
+    Cascader
+
 } from 'element-ui'
 
+Vue.use(Cascader)
+Vue.use(Option)
+Vue.use(Select)
 Vue.use(Button)
 Vue.use(Form)
 Vue.use(FormItem)
@@ -48,6 +57,8 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Tag)
+Vue.use(Tree)
     // 把message挂载到vue实例上
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

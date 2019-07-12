@@ -4,6 +4,7 @@ import router from './router'
 import './plugins/element.js'
 // 导入字体图标
 import './assets/fonts/iconfont.css'
+import TreeTable from 'vue-table-with-tree-grid'
 
 import axios from 'axios'
 // 挂载到vue的原型上,所有vue的组件上都可以通过this访问到这个属性
@@ -18,6 +19,10 @@ axios.interceptors.request.use(function(config) {
     return config;
 })
 Vue.config.productionTip = false
+
+// 注册为全局可用
+Vue.component('tree-table',
+    TreeTable)
 
 new Vue({
     router,
