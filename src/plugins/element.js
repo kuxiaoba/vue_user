@@ -39,6 +39,10 @@ import {
     Upload
 } from 'element-ui'
 
+import Timeline from './timeline/index.js'
+import TimelineItem from './timeline-item/index.js'
+
+
 Vue.use(Upload)
 Vue.use(CheckboxGroup)
 Vue.use(Checkbox)
@@ -74,6 +78,9 @@ Vue.use(Dialog)
 Vue.use(Tag)
 Vue.use(Tree)
 Vue.use(Tabs)
-    // 把message挂载到vue实例上
+Vue.use(Timeline)
+Vue.use(TimelineItem)
+
+// 把message挂载到vue实例上
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
