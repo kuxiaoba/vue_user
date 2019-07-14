@@ -49,15 +49,8 @@
       </tree-table>
 
       <!-- 分页 -->
-       <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="querInfo.pagenum"
-      :page-sizes="[3, 5, 8, 14]"
-      :page-size="querInfo.pagesize"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>
+     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="querInfo.pagenum" :page-sizes="[3, 5, 10, 15]" :page-size="querInfo.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
     </el-card>
 
     <!-- 添加类型对话框 -->
@@ -90,7 +83,7 @@ export default {
     return {
       querInfo: {
         type: 3,
-        pagenum: 3,
+        pagenum: 1,
         pagesize: 5
       },
       // 商品分类数据 默认空
@@ -176,7 +169,7 @@ children:'children'
     // 监听 pagenum的改变
     handleCurrentChange (newPage){
         this.querInfo.pagenum = newPage
-        this.getCateList
+        this.getCateList()
     },
     showAddCateDialog(){
         // 先获取父级分类
